@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+spec:
+  destination:
+    namespace: cert-manager
+    server: {{ .Values.spec.destination.server }}
+  source:
+    repoURL: 'https://charts.jetstack.io'
+    targetRevision: v1.4.0
+    chart: cert-manager
+    helm:
+      values: ''
+      parameters:
+        - name: installCRDs
+          value: 'true'
+  project: default
